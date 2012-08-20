@@ -1,0 +1,72 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>[% title %]</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link href="css/common.css" rel="stylesheet" type="text/css">
+</head>
+<script src="./js/valReg.js" type="text/javascript"></script>
+<div align="center">
+	<div style="width:100%; text-align:left">
+		<div style="padding:0px 25px 0px 25px" align="left">
+<br>
+<form name="register" method="post" onsubmit="return validateFormOnSubmit(this)">
+<table class="tborder" cellpadding="6" cellspacing="1" border="0" width="100%" align="center">
+<tbody><tr>
+	<td class="tcat">Register</td>
+</tr>
+<tr>
+	<td class="panelsurround" align="center">
+	<div class="panel">
+		<div style="width:640px" align="left">
+	        [%IF err%]
+            <label style="color:red"><b>[%err%]</b></label>
+            [%END%]
+			<div class="smallfont" style="margin-bottom:3px">
+				<strong>Username</strong>:<br>
+				<input class="bginput" id="username" type="text" name="username" size="50" maxlength="50" value="">
+			</div>
+
+			<fieldset class="fieldset">
+				<legend>Password</legend>
+				<table cellpadding="0" cellspacing="3" border="0" width="400">
+				<tbody>
+				<tr>
+					<td>
+						Password:<br>
+						<input type="password" class="bginput" id="pwd" name="password" size="25" maxlength="50" value="">
+					</td>
+				</tr>
+				</tbody></table>
+			</fieldset>
+
+			<fieldset class="fieldset">
+				<legend>Email</legend>
+				<table cellpadding="0" cellspacing="3" border="0" width="400">
+				<tbody><tr>
+					<td colspan="2">Type your active email andress.</td>
+				</tr>
+				<tr>
+					<td>
+						Email:<br>
+						<input type="text" class="bginput" id="email" name="email" size="25" maxlength="70" value="" dir="ltr">
+					</td>
+				</tr>
+				
+				</tbody></table>
+			</fieldset>
+		</div>
+	</div>
+	<div style="margin-top:6px">
+		<input type="submit" class="button" value="Regist" accesskey="s">
+		<input type="reset" class="button" name="Reset" value="Cancel">
+	</div>
+	</td>
+</tr>
+</tbody></table>
+</form>
+		</div>
+	</div>
+</div>

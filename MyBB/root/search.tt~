@@ -1,0 +1,52 @@
+[% WRAPPER page.tt title = c.config.name ; END %]
+<br>
+[%IF results%]
+[%INCLUDE pager.tt%]
+[%FOREACH post IN results%]
+<table class="tborder" cellpadding="6" cellspacing="1" border="0" width="100%" align="center" style="margin:6px 0px 6px 0px">
+<tbody><tr>
+	<td class="thead" style="font-weight:normal">		
+		<span style="float:right">
+			トピック: <a href="/showtopic?id=[%post.thread.topic.id%]&page=1">[%post.thread.topic.title%]</a>
+		</span>
+	</td>
+</tr>
+<tr>
+	<td class="alt1">
+		<div>
+			<img class="inlineimg" src="" alt="" border="0">
+			  <a href="/showthread?id=[%post.thread.id%]&page=1"><strong>[%post.thread.title%]</strong></a>
+		</div>
+		<div class="smallfont">
+			by [%post.thread.createdby.name%]
+		</div>
+
+		<div class="alt2" style="margin:6px 0px 6px 0px; padding:6px; border:2px groove">
+			<div class="smallfont"><em>
+				<img class="inlineimg" src="" alt="" border="0">
+				<a href="/showthread?id=[%post.thread.id%]&toPost=[%post.id%]">Link to post</a><br>
+				<br>
+				[%getPreview(post.content)%]
+			</em></div>
+		</div>
+	</td>
+</tr>
+</tbody></table>
+[%END%]
+[%INCLUDE pager.tt%]
+[%ELSE%]
+<table class="tborder" cellpadding="6" cellspacing="1" border="0" width="70%" align="center">
+<tbody><tr>
+	<td class="tcat">Not found</td>
+</tr>
+<tr>
+	<td class="panelsurround" align="center">
+	<div class="panel">
+		<div align="left">
+			<div style="margin: 10px">Can not find "[%pageId%]" at anywhere. Click <a href="/">here</a> to return main page</div>
+		</div>
+	</div>
+	</td>
+</tr>
+</tbody></table>
+[%END%]

@@ -1,0 +1,83 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>[% title %]</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link href="css/common.css" rel="stylesheet" type="text/css">
+
+
+</head>
+<body>
+<div style="width:100%; text-align:left">
+<div style="padding:0px 25px 0px 25px" align="left">
+<table calss="tborder" cellpadding="1" cellspacing="1" border="1" width="200px" align="right">
+    <tr>
+        <td class="alt2" width="100%">
+            <div class="smallfont">
+            <form method="post" action="[%c.uri_for(c.controller('search').action_for('index'),{page => 1})%]">
+            <input type="text" style="font-size: 11px" name="keyword" id="keyword" size="17" tabindex="104">
+            <input type="submit" class="button" value="検索" tabindex="105" accesskey="s">
+            </div> 
+        </td>
+    </tr>
+</table>
+<br>
+<br>
+<br>
+<table class="tborder" cellpadding="6" cellspacing="1" border="0" width="100%" align="center">
+<tbody><tr>
+	<td class="alt1" width="100%">
+			<div class="navbar" style="font-size:10pt">
+			<a href="/" accesskey="1"><strong>MyBB ></strong></a>
+			[%IF topicId%]
+			<a href="/showtopic?id=[%topicId%]" accesskey="2"><strong> [%topicTitle%] ></strong></a>
+			    [%IF threadId%]
+			    <a href="/showthread?id=[%threadId%]" accesskey="3"><strong> [%threadTitle%] ></strong></a>
+			    [%END%]
+			[%END%]
+			</div>
+	</td>	
+		<td class="alt2" nowrap="nowrap" style="padding:0px">
+		[%IF !c.stash.user %]
+		<!-- login form -->
+		<form method="post" action="[%c.uri_for(c.controller('Root').action_for('signIn'),{topic => topicId, thread => threadId, page => page})%]">
+		<table cellpadding="0" cellspacing="3" border="0">
+		<tbody><tr>
+			<td class="smallfont"><label for="username">アカウント</label></td>
+			<td><input type="text" style="font-size: 11px" name="username" size="10" accesskey="u" tabindex="101"></td>
+			<td class="smallfont" colspan="2" nowrap="nowrap"><a href="register">登録を行っ</a></td>
+		</tr>
+		<tr>
+			<td class="smallfont"><label for="password">パスワード</label></td>
+			<td><input type="password" style="font-size: 11px" name="password" size="10" tabindex="102"></td>
+			<td><input type="submit" class="button" value="ログイン" tabindex="103" title="Enter your username and password in the boxes provided to login, or click the '登録を行っ' button to create a profile for yourself." accesskey="i"></td>
+		</tr>
+		</tbody></table>
+		</form>
+		<!-- / login form -->
+                [% ELSE %]
+		<table class="tborder" cellpadding="6" cellspacing="1" border="0" width="100%" align="center">
+		<tbody>	
+			<tr>
+				<td></td>
+				<td class="alt2" valign="top" nowrap="nowrap">
+				<div class="smallfont">
+					<strong>こんにちわ, [%c.stash.user%]</strong><br>		 
+				</div>
+				<br>
+				<a href="[%c.uri_for(c.controller('Root').action_for('signOut'))%]">ログオフ</a>
+				</td>
+			</tr>
+		</tbody>
+		</table>
+		[% END %]	
+		</td>
+</tr>
+</tbody></table>
+[% content %]
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom:3px">
+<tbody>
+<tr valign="bottom">
+    [%IF action%]
+	<td class="smallfont"><a href="[%action%]"><img src="./static/images/add.png" border="0" style="height: 30px" title="[%legend%]"></a></td>
+	[%END%]
+	<td align="right"><div class="pagenav" align="right">
+    <table class="tborder" cellpadding="3" cellspacing="1" border="0">
+    <tbody><tr>
+	    <td class="vbmenu_control" style="font-weight:normal">Page [%page%]/[%numPage%]</td>
+	    <td class="alt1" nowrap="nowrap"><a class="smallfont" href="[%pageLink%]?id=[%pageId%]&page=1"><strong>«</strong> First</a></td>
+	    [%IF page > 1%]
+	    <td class="alt1"><a rel="next" class="smallfont" href="[%pageLink%]?id=[%pageId%]&page=[%page - 1%]">&lt;</a></td>
+	    [%ELSE%]
+	    <td class="alt1"><span class="smallfont">&lt;</span></td>
+	    [%END%]
+		<td class="alt2"><span class="smallfont"><strong>[%page%]</strong></span></td>
+		[%IF page < numPage%]
+	    <td class="alt1"><a rel="next" class="smallfont" href="[%pageLink%]?id=[%pageId%]&page=[%page + 1%]">&gt;</a></td>
+	    [%ELSE%]
+	    <td class="alt1"><span class="smallfont">&gt;</span></td>
+	    [%END%]
+	    <td class="alt1" nowrap="nowrap"><a class="smallfont" href="[%pageLink%]?id=[%pageId%]&page=[%numPage%]">Last <strong>»</strong></a></td>
+    </tr>
+    </tbody></table>
+    </div></td>
+    </tr>
+    </tbody>
+    </table>

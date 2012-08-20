@@ -1,0 +1,92 @@
+[% WRAPPER page.tt title = c.config.name ; END %]
+</br>
+<table class="tborder" cellpadding="6" cellspacing="1" border="0" width="100%" align="center">
+<thead>
+	<tr align="center">
+	  <td class="thead">&nbsp;</td>
+	  <td class="thead" width="100%" align="left">トピック</td>
+	  <td class="thead">新しいスレッド</td>
+	  [%IF (user == 'Admin')%]
+	  <td class="thead">編集</td>
+	  <td class="thead">削除する</td>
+	  [%END%]
+	</tr>
+</thead>
+
+<tbody id="collapseobj_forumbit_22" style="">
+<a name='[%count%]'></a>
+[%count = count + 1%]
+[%FOREACH topic = topics%]
+<tr align="center">
+	<td class="alt2"><img src="" alt="" border="0" style="cursor: pointer; "></td>
+	<td class="alt1Active" align="left">
+		<div>
+			<a name='[%count%]'></a>
+			[%count = count + 1%]
+			<a href="[% c.uri_for(c.controller('Root').action_for('showtopic'), {id => topic.id})%]"><strong>[%topic.title%]</strong></a>	
+		</div>
+		<div class="smallfont">[%topic.description%]</div>
+	</td>
+	<td class="alt2">
+	[%IF topic.lastestthread%]
+<div class="smallfont" align="left">
+	<div>
+		<span style="white-space:nowrap">
+		<img class="inlineimg" src="" alt="" border="0">		
+		<a href="showthread?id=[%topic.lastestthread.id%]" title=""><strong>[%topic.lastestthread.title%]</strong></a></span>
+	</div>
+	<div style="white-space:nowrap">
+		by <label style="color:blue">
+		[%IF topic.lastestthread.lastestpost.createdby.name%]
+		[%topic.lastestthread.lastestpost.createdby.name%]
+		[%ELSE%]
+		Guest
+		[%END%]</label>
+	</div>
+	<div align="right" style="white-space:nowrap">
+	    [%IF (topic.lastestthread.lastestpost.createddate.date == now)%]
+			今日は
+			[%ELSE%]
+			[%topic.lastestthread.lastestpost.createddate.date%]
+			[%END%] <span class="time">[%topic.lastestthread.lastestpost.createddate.time%]</span><br>
+		&nbsp;<a href="showthread?id=[%topic.lastestthread.id%]&end=1"><img class="inlineimg" src="./static/images/arrowr.png" style="height:10px" alt="To lastest post" border="0" title="To lastest post"></a>
+	</div>
+</div>
+    [%END%]
+</td>
+    [%IF (user == 'Admin')%]
+	<td class="alt1">
+	    <div class="smallfont" align="left">
+	    <div>
+		    <span style="white-space:nowrap">
+		    <img class="inlineimg" src="" alt="" border="0">		
+		    <a href="edittopic?id=[%topic.id%]&position=[%count%]" title=""><img class="inlineimg" src="./static/images/edit.png" style="height:20px" alt="Edit this topic" border="0" title="Edit this topic"></a></span>
+	    </div>
+    </td>
+	<td class="alt2">
+	    <div class="smallfont" align="left">
+	    <div>
+		    <span style="white-space:nowrap">
+		    <img class="inlineimg" src="" alt="" border="0">		
+		    <a href="delete?id=[%topic.id%]&position=[%count - 1%]&type=topic" title=""><img class="inlineimg" src="./static/images/delete.png" style="height:20px" alt="Delete this topic" border="0" title="Delete this topic"></img></a></span>
+	    </div>
+	</td>
+	[%END%]
+</tr>
+[%END%]
+
+</tbody>
+
+<tbody>
+	<tr>
+		<td class="tfoot" align="center" colspan="5"><div class="smallfont"><strong>
+		[%IF (user == 'Admin')%]
+			<a href="/createtopic">新しいトピックを作成する</a>
+			&nbsp; &nbsp;
+			<a href="/admin">管理者</a>
+	    [%END%]
+		</strong></div></td>
+	</tr>
+</tbody>
+</table>
+

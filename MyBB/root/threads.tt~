@@ -1,0 +1,80 @@
+[% WRAPPER page.tt title = c.config.name ; END %]
+<br>
+[%INCLUDE pager.tt%]
+<a name='[%count%]'></a>
+[%count = count + 1%]
+<table class="tborder" cellpadding="6" cellspacing="1" border="0" width="100%" align="center" id="threadslist">
+<tbody>
+<tr>
+	<td class="thead" colspan="2">&nbsp;</td>
+	<td class="thead" width="100%">
+		<span style="float:right"></span>
+		スレッド/クリエイター
+	</td>
+	<td class="thead" width="150" align="center" nowrap="nowrap"><span style="white-space:nowrap">新しいポスト</span></td>
+	[%IF (user == 'Admin')%]
+	<td class="thead" align="center" nowrap="nowrap"><span style="white-space:nowrap">編集 </span></td>
+	<td class="thead" align="center" nowrap="nowrap"><span style="white-space:nowrap">削除する </span></td>
+	[%END%]
+</tr>
+</tbody>
+
+<!-- show threads -->
+<tbody id="threadbits_forum_168">
+[%FOREACH thread = threads%]
+<tr>
+	<td class="alt1" id="td_threadstatusicon_80226">
+		<a name='[%count%]'></a>
+        [%count = count + 1%]       
+        [%IF (thread.lastestpost.createddate > yesterday)%]<img class="inlineimg" src="./static/images/status_new.png" style="height:20px" alt="New" border="0" title="This thread is updated in last 24h">
+        [%ELSE%]
+        <img class="inlineimg" src="./static/images/status_old.png" style="height:20px" alt="New" border="0" title="This thread is not updated in last 24h">
+        [%END%]
+	</td>	
+		<td class="alt2"><img src="" alt="" border="0"></td>
+	<td class="alt1">	
+		<a href="showthread?id=[%thread.id%]" style="font-weight:bold">[%thread.title%]</a>
+		<div class="smallfont">		
+			<span style="cursor:pointer">[%thread.createdby.name%]</span>	
+		</div>
+	</td>
+	<td class="alt2">
+		<div class="smallfont" style="text-align:right; white-space:nowrap">
+			[%IF (thread.lastestpost.createddate.date == now)%]
+			Today
+			[%ELSE%]
+			[%thread.lastestpost.createddate.date%]
+			[%END%] <span class="time">[%thread.lastestpost.createddate.time%]</span><br>
+			by <label style="color:blue">
+			[%IF thread.lastestpost.createdby.name%]
+			[%thread.lastestpost.createdby.name%]
+			[%ELSE%]
+			Guest
+			[%END%]</label>&nbsp;<a href="showthread?id=[%thread.id%]&end=1"><img class="inlineimg" src="./static/images/arrowr.png" style="height:10px" alt="To lastest post" border="0" title="To lastest post"></a>
+		</div>
+	</td>
+	[%IF (user == 'Admin')%]
+	<td class="alt1">
+	    <div class="smallfont" align="left">
+	    <div>
+		    <span style="white-space:nowrap">
+		    <img class="inlineimg" src="" alt="" border="0">		
+		    <a href="editthread?id=[%thread.id%]&position=[%count%]" title=""><img class="inlineimg" src="./static/images/edit.png" style="height:20px" alt="Edit this thread" border="0" title="Edit this thread"></a></span>
+	    </div>
+    </td>
+	<td class="alt2">
+	    <div class="smallfont" align="left">
+	    <div>
+		    <span style="white-space:nowrap">
+		    <img class="inlineimg" src="" alt="" border="0">		
+		    <a href="delete?id=[%thread.id%]&position=[%count - 1%]&type=thread&parent=[%parent%]&page=[%page%]" title=""><img class="inlineimg" src="./static/images/delete.png" style="height:20px" alt="Delete this thread" border="0" title="Delete this thread"></a></span>
+	    </div>
+	</td>
+	[%END%]
+</tr>
+[%END%]
+</tbody>
+<!-- end show threads -->
+</table>
+<br>
+[%INCLUDE pager.tt%]

@@ -1,0 +1,40 @@
+[% WRAPPER page.tt title = c.config.name ; END %]
+<div align="center">
+	<div class="page" style="width:100%; text-align:left">
+		<div style="padding:0px 25px 0px 25px" align="left">
+<br>
+<form name="create topic" method="post" action="[% c.uri_for('create')%]">
+<table class="tborder" cellpadding="6" cellspacing="1" border="0" width="100%" align="center">
+<tbody><tr>
+	<td class="tcat">Create Thread</td>
+</tr>
+<tr>
+	<td class="panelsurround" align="center">
+	<div class="panel">
+		<div style="width:640px" align="left">
+			<div class="smallfont" style="margin-bottom:3px">
+				<strong>Title</strong>:<br>
+				<input class="bginput" type="text" name="title" size="50" maxlength="100" value="">
+			</div>
+				<table cellpadding="0" cellspacing="3" border="0" width="400">
+				<tbody>
+				<tr>
+					<td>
+						Description:<br>
+						<textarea name="description" maxlength="200" cols="49" rows="4"></textarea>
+					</td>
+				</tr>
+				</tbody></table>
+		</div>
+	</div>
+	<div style="margin-top:6px">
+		<input type="submit" class="button" value="Create" accesskey="c">
+		<input type="reset" class="button" name="Reset" value="Cancel">
+	</div>
+	</td>
+</tr>
+</tbody></table>
+</form>
+		</div>
+	</div>
+</div>

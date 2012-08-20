@@ -1,0 +1,139 @@
+[% WRAPPER page.tt title = c.config.name ; END %]
+<script src="./js/valPost.js" type="text/javascript"></script>
+<br>
+<div align="center">
+	<div style="width:100%; text-align:left">
+		<div style="padding:0px 25px 0px 25px" align="left">
+[%INCLUDE pager.tt%]
+<br>
+<a name='[%count%]'></a>
+[%count = count + 1%]
+[%FOREACH post = posts%]
+<a name='[%count%]'></a>
+[%count = count + 1%]
+<table class="tborder" cellpadding="6" cellspacing="1" border="0" width="100%" align="center">
+<tbody><tr>
+	<td class="thead" id="currentPost">
+		<div class="normal" style="float:right">
+			&nbsp;
+			#<strong>[%post.ordernum%]</strong> &nbsp;
+		</div>
+
+		<div class="normal">
+			<!-- status icon and date -->
+            [%post.createddate.date%] [%post.createddate.time%]
+			<!-- / status icon and date -->
+		</div>
+	</td>
+</tr>
+<tr>
+	<td class="alt2" style="padding:0px">
+		<!-- user info -->
+		<table cellpadding="0" cellspacing="6" border="0" width="100%">
+		<tbody><tr>
+			<td class="alt2"><a href=""><img src="" width="80" height="80" alt="" border="0" title=""></a></td>
+			<td nowrap="nowrap">
+					<label style="color:blue">
+			        [%IF post.createdby.name%]
+			        [%post.createdby.name%]
+			        [%ELSE%]
+			        Guest
+			        [%END%]</label>
+			</td>
+			<td width="100%" align="right">&nbsp;</td>
+			<td valign="top" nowrap="nowrap">
+                 <div class="smallfont">
+                    <div>日付を結合: 
+                    [%IF post.createdby.createddate.date%]
+			        [%post.createdby.createddate.date%]
+			        [%ELSE%]
+			        Unknown
+			        [%END%]
+                    </div>  
+				 </div>
+			</td>
+		</tr>
+		</tbody></table>
+		<!-- / user info -->
+	</td>
+</tr>
+<tr>
+
+	<td class="alt1">
+		<!-- icon and title -->
+		<div class="smallfont">
+			<img class="inlineimg" src="" alt="Default" border="0" title="Default">
+			<strong>[%post.thread.title%]</strong>
+			[%IF((userId)&&((role == 'Admin')||(post.createdby.id == userId)))%]
+		    <div style="float:right"><a href="[%c.uri_for(c.controller('Root').action_for('delete'), {id => post.id, position => count - 1, type => 'post', parent => post.thread.id, page => page})%]"><img class="inlineimg" src="./static/images/delete.png" style="height:20px" alt="Delete this post" border="0" title="Delete this post"></a></div>
+		    [%END%]
+			[%IF((userId)&&((role == 'Admin')||(post.createdby.id == userId)))%]
+		    <div style="float:right"><a href="[%c.uri_for(c.controller('Root').action_for('showthread'), {id => parent, postId => post.id, page => page})%]#[%count - 1%]"><img class="inlineimg" src="./static/images/edit.png" style="height:20px" alt="Edit this post" border="0" title="Edit this post"></a></div>
+		    [%END%]
+		</div>
+		<hr size="1" style="color:#D1D1E1; background-color:#D1D1E1">
+		<!-- / icon and title -->
+		<!-- message -->
+		[%IF (((role == 'Admin')||(post.createdby.id == userId))&&(post.id == postId))%]
+		<form name="edit" method="post" onsubmit="return validateConfirm(this.contentEdit)" action="[%c.uri_for(c.controller('Root').action_for('showthread'), {editId => post.id, position => count - 1, page => page})%]">
+		    <textarea name="contentEdit" style="width: 100%" rows="10">[%post.content%]</textarea><br>
+		    <input type="submit" name="save" value="保存">
+	    </form>
+		[%ELSE%]
+		<div>
+			[%detectLink(post.content)%]
+		</div>
+		[%END%]
+		<!-- / message -->
+		<hr size="1" style="color:#D1D1E1; background-color:#D1D1E1">
+		[%IF post.lastupdate%]
+		<div class="smallfont">
+		    Last updated at [%post.lastupdate.date%] [%post.lastupdate.time%]
+	    </div>
+	    [%END%]
+	</td>
+</tr>
+</tbody></table>
+<br>
+[%END%]
+<a name="end"></a>
+[%INCLUDE pager.tt%]
+<br>
+<!--Reply table-->
+<a name="reply"></a>
+<form name="reply" method="post" onsubmit="return validateConfirm(this.content)" action="[% c.uri_for(c.controller('Root').action_for('reply'), {threadId => parent})%]">
+<table class="tborder" cellpadding="6" cellspacing="1" border="0" width="100%" align="center">
+	<thead>
+		<tr>
+			<td class="tcat" colspan="2">
+				返信
+			</td>
+		</tr>
+	</thead>
+	
+	<tbody id="collapseobj_quickreply" style="">
+	<tr>
+		<td class="panelsurround" align="center">
+			<div class="panel">
+				<div align="center" style="max-width:640px; width:auto !important; width:640px">
+				    <div class="smallfont" align="left" style="font-size:10px">To insert an image into your post, put image url between '[IMG]' and '[/IMG]'. Example: [IMG]http://server.dns/image.jpg[/IMG]</div><br>
+				    <div class="smallfont" align="left">コンテンツ:</div>
+					<div id="vB_Editor_QR" class="vBulletin_editor">
+                        <div class="controlbar" style="padding-right:8px">
+	                        <fieldset style="border:0px; padding:0px; margin:0px">	
+	                        <textarea name="content" rows="10" cols="60" style="width: 100%; height: 100px;" tabindex="1"></textarea>	
+	                        </fieldset>
+	                        <!--width:540px-->
+                        </div>
+				        <input type="submit" class="button" value="返信" accesskey="s" title="(Alt + S)" name="reply" tabindex="2" id="qr_submit">
+				        <input type="reset" class="button" value="リセット" accesskey="r" title="(Alt + R)" name="reset" tabindex="3" id="qr_preview">
+			        </div>
+		        </div>
+	        </div>
+		</td>
+	</tr>
+	</tbody>
+	</table>
+</form>
+</div></div>
+
